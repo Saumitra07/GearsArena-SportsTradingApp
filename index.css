@@ -1,0 +1,160 @@
+.wrapper
+{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body
+{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    color: white;
+
+}
+
+/* CSS for header and navigation bar*/
+header{
+    
+    background-color:rgb(2, 18, 31)
+    
+}
+
+
+.logo {
+    font-family: 'Trade Winds', cursive;
+    color: white;
+    margin-left: 10px;
+}
+
+.logo:hover{
+    color: rgb(133, 185, 228)
+}
+ul
+{
+    margin-right: 30px;
+}
+
+.navbar
+{
+    border-bottom: 1px solid white;
+}
+.nav-link
+{
+    color: white;
+}
+.nav-item:hover{
+    background-color: rgb(45, 54, 54);
+    
+  
+}
+.nav-link:hover{
+    color: bisque;
+    color: rgb(133, 185, 228)
+}
+
+
+/* CSS for main content*/
+
+.main_content
+{
+    width: 80%;
+    margin: 5% auto;
+   flex: 1;
+
+}
+.items
+{
+    width: 100%;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.intro
+{
+   
+    margin: 5% auto;
+    color: black;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    width: 100%;
+    padding: 5%;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.form
+{
+   
+    padding: 50px;
+    margin-left:auto ;
+    margin-right: auto;
+    color: black;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    
+}
+.product_card{
+
+    position: relative;
+}
+.product_card p
+{
+    text-align: justify; 
+    width: 80%; 
+    margin: 5% auto;
+}
+.btn
+{
+    background-color:rgb(2, 18, 31);
+}
+.btn:hover{
+    background-color: rgb(45, 54, 54);
+    color: rgb(133, 185, 228);
+   
+
+}
+.btn-create-trade
+{
+    float: right;
+}
+
+
+.card-img-top {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+
+}
+.img-gallary
+{
+    height: 200px;
+}
+
+.description
+{
+    color: black;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+
+}
+
+h2{
+    text-align: center;
+}
+
+
+/* CSS for footer */
+
+footer{
+    background-color:rgb(2, 18, 31)
+}
+.footer_nav
+{
+        width: 40%;
+        margin: 0 auto;
+        padding-top: 0.2%;
+        padding-bottom: 0.1%;
+        padding-left: 14%;
+}
