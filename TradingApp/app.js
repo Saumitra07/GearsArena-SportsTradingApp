@@ -4,7 +4,7 @@ const express=require('express');
 
 const morgan=require('morgan');
 
-const storyRoutes=require('./routes/storyRoutes');
+// const storyRoutes=require('./routes/storyRoutes');
 
 var methodOverride = require('method-override')
 
