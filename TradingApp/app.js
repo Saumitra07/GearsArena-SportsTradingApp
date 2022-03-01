@@ -10,6 +10,8 @@ var methodOverride = require('method-override')
 
 
 
+const tradeRoutes=require('./routes/TradeRoutes')
+
 //create app
 const app=express();
 
@@ -28,7 +30,7 @@ app.use(methodOverride('_method'))
 app.use(express.static('public'));
 app.use(express.urlencoded({extended:true}));
 app.use(morgan('tiny'));
-// app.use('/stories',storyRoutes);
+app.use('/trades',tradeRoutes);
 
 
 

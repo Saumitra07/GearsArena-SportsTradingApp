@@ -1,0 +1,15 @@
+<%- include('../partials/header.ejs') %>
+<main class="main_content">
+<div class="container description">
+    <div class="row mb-3  p-4">
+        <div class="bg-white col-xl-4 col-lg-4 col-md-6 border border-dark rounded-top"><img src="<%= item.itemImage %>" alt="<%= item.itemImage %>" class="img-fluid card-img-top"></div>
+        <div class="col-xl-8 col-lg-8 col-md-6 product_card"> 
+          <h2><%= item.itemName %></h2>
+          <p ><%= item.itemDescription %></p>
+          <a href="./trades.html" class="btn btn-primary">Trade</a>
+          <a href="./trades.html" class="btn btn-primary">Rate</a>
+        </div>
+    </div>
+  </div> 
+</main>
+<%- include('../partials/footer.ejs') %>
