@@ -28,3 +28,40 @@ exports.getTrade=(req,res)=>{
         // next(err);
     }
 }
+
+
+
+
+exports.new=(req,res)=>{
+
+    //  res.send('send the new form');
+  
+
+
+    res.render('./trades/new.ejs');
+  
+  };
+  
+  exports.create=(req,res)=>
+  {
+
+    let item=req.body;
+    model.createTrade(item);
+    res.redirect('/trades');
+  }
+
+  exports.delete=(req,res)=>
+  {
+    let id=req.params.id;
+   if(model.deleteById(id))
+   {
+       res.redirect('/trades');
+
+   }
+//    else{
+//     let err=new Error('Cannot find story with id '+ id);
+//     err.status=404;
+//     next(err);
+//    }
+        
+  }

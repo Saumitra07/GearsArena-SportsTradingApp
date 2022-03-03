@@ -1,0 +1,39 @@
+<%- include('../partials/header.ejs') %>
+<main class="main_content">
+    <div class="container">
+      <div class="form">
+        <form method="POST" action="/trades">
+          <div class="row mb-3">
+            <!-- <label for="category" class="col-sm-3 col-form-label text-center">Sport</label> -->
+            <label for="item_name" class="col-sm-3 col-form-label text-center">Sport</label>
+            <div class="col-sm-9">
+              <!-- <select class="form-select" aria-label="Default select example" id="category">
+                <option selected>Open this select menu</option>
+                <option value="Football">Football</option>
+                <option value="Golf">Golf</option>
+                <option value="Baseball">BaseBall</option>
+              </select> -->
+              <input type="text" class="form-control" name="categoryName" id="category">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="item_name" class="col-sm-3 col-form-label text-center">Item Name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="itemName" id="item_name">
+            </div>
+          </div>
+     
+          <div class="row mb-3">
+            <label for="description" class="col-sm-3 col-form-label text-center">description</label>
+            <div class="col-sm-9">
+              <textarea class="form-control" name="itemDescription" id="description" rows="3"></textarea>
+            </div>
+          </div>
+          <!-- <a href="./trades.html" class="btn btn-primary btn-create-trade">Create Trade</a> -->
+          <button class="btn btn-primary btn-create-trade">Create Trade</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer.ejs') %>

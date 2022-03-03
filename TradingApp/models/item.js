@@ -1,3 +1,4 @@
+const e = require('express');
 const { DateTime } = require('luxon');
 const { v4: uuid } = require('uuid');
 
@@ -97,4 +98,71 @@ exports.getTrade=(id)=>
         return category.items.find(item=>item.itemId===id);
     }
    
+
+}
+
+exports.createTrade=(item)=>
+{
+  //categoryName
+  //itemName
+  //itemDescription
+    
+  let cat=trades.find(category=>category.categoryName===item.categoryName);
+  item.itemId=uuid();
+  item.itemImage='/images/baseball1.jpeg';
+  item.createdAt=DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
+  if(cat===undefined)
+  {
+     
+    //console.log(cat);
+    let new_category={
+        categoryId:uuid(),
+        categoryName:item.categoryName,
+        items:[item]
+
+    }
+    console.log(item)
+     trades.push(new_category);
+    // trades.new_category.items.push(item);
+   
+
+  }
+
+  else{
+    cat.items.push(item);
+   
+  }
+    
+
+}
+
+
+exports.deleteById=(id)=>
+{
+   
+    let category= trades.find(category=>category.items.find(item=>item.itemId===id));
+    catgeory_id=category.categoryId;
+    if(category)
+    {
+        // return category.items.find(item=>item.itemId===id);
+        let index=category.items.findIndex(item=>item.itemId===id);
+        if(index!==-1)
+        {
+            category.items.splice(index,1);
+            if(category.items.length===0)
+            {
+              //  console.log("No items to show");
+                let cat_index=trades.findIndex(category=>category.categoryId===catgeory_id);
+                trades.splice(cat_index,1);
+                
+            }
+            return true;
+        }
+        else{
+            return false;
+        }
+    
+
+    }
+
 }
