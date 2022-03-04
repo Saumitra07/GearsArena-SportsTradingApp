@@ -89,15 +89,24 @@ const trades = [{
 exports.getTrades=()=>trades;
 
 
+exports.getCategory=(id)=>
+{
+    return trades.find(category=>category.items.find(item=>item.itemId===id));
+}
+
 exports.getTrade=(id)=>
 {
 
     let category= trades.find(category=>category.items.find(item=>item.itemId===id));
     if(category)
     {
-        return category.items.find(item=>item.itemId===id);
+         return category.items.find(item=>item.itemId===id);
+        // let item= category.items.find(item=>item.itemId===id);
+        // item.categoryId=category.categoryId;
+        // item.categoryName=category.categoryName;
+        // return item;
     }
-   
+    
 
 }
 
@@ -165,4 +174,25 @@ exports.deleteById=(id)=>
 
     }
 
+}
+
+exports.updateById=(id,newItem)=>
+{
+
+    let category= trades.find(category=>category.items.find(item=>item.itemId===id));
+    if(category)
+    {
+        category.categoryName=newItem.categoryName;
+        let item=category.items.find(category=>category.itemId===id)
+        if(item)
+        {
+            item.itemName=newItem.itemName;
+            item.itemDescription=newItem.itemDescription;
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
 }
