@@ -101,10 +101,7 @@ exports.getTrade=(id)=>
     if(category)
     {
          return category.items.find(item=>item.itemId===id);
-        // let item= category.items.find(item=>item.itemId===id);
-        // item.categoryId=category.categoryId;
-        // item.categoryName=category.categoryName;
-        // return item;
+        
     }
     
 
@@ -112,9 +109,7 @@ exports.getTrade=(id)=>
 
 exports.createTrade=(item)=>
 {
-  //categoryName
-  //itemName
-  //itemDescription
+
     
   let cat=trades.find(category=>category.categoryName===item.categoryName);
   item.itemId=uuid();

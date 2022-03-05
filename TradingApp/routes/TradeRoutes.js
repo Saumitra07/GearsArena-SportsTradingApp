@@ -15,12 +15,10 @@ router.get('/:id',controller.getTrade);
 router.get('/:id/edit',controller.edit);
 
 
-//PUT to update a story
 
 router.put('/:id',controller.update);
 
 
-// router.post('/',)
 
 router.delete('/:id',controller.delete);
 

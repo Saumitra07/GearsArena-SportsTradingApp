@@ -4,15 +4,10 @@
       <div class="form">
         <form method="POST" action="/trades/<%=item.itemId%>?_method=PUT">
           <div class="row mb-3">
-            <!-- <label for="category" class="col-sm-3 col-form-label text-center">Sport</label> -->
+      
             <label for="item_name" class="col-sm-3 col-form-label text-center">Sport</label>
             <div class="col-sm-9">
-              <!-- <select class="form-select" aria-label="Default select example" id="category">
-                <option selected>Open this select menu</option>
-                <option value="Football">Football</option>
-                <option value="Golf">Golf</option>
-                <option value="Baseball">BaseBall</option>
-              </select> -->
+           
               <input type="text" class="form-control" name="categoryName" id="category" value="<%= item.categoryName%>">
             </div>
           </div>
