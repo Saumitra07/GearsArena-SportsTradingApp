@@ -2,14 +2,14 @@
 <main class="main_content">
     <div class="container">
       <div class="form">
-        <form method="POST" action="/trades/<%=item.itemId%>?_method=PUT">
+        <form method="POST" action="/trades/<%=item._id%>?_method=PUT">
           <div class="row mb-3">
       
-            <label for="item_name" class="col-sm-3 col-form-label text-center">Sport</label>
+            <!-- <label for="item_name" class="col-sm-3 col-form-label text-center">Sport</label>
             <div class="col-sm-9">
            
               <input type="text" class="form-control" name="categoryName" id="category" value="<%= item.categoryName%>">
-            </div>
+            </div> -->
           </div>
           <div class="row mb-3">
             <label for="item_name" class="col-sm-3 col-form-label text-center">Item Name</label>

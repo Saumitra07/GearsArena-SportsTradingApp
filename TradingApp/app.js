@@ -6,6 +6,7 @@ const morgan=require('morgan');
 
 // const storyRoutes=require('./routes/storyRoutes');
 
+const mongoose=require('mongoose');
 var methodOverride = require('method-override')
 
 
@@ -40,6 +41,19 @@ app.use('/',mainRoutes);
 //     res.render('index');
 // })
 
+//connect to database
+
+mongoose.connect('mongodb://localhost:27017/trade_sports',{useNewUrlParser:true,useUnifiedTopology:true})
+.then(()=>{
+    app.listen(port, host, ()=>{
+        console.log('Server is running on port', port);
+       // console.log("db connected");
+    });
+
+})
+.catch(
+err=>console.log(err));
+
 
 
 app.use((req,res,next)=>{
@@ -65,7 +79,7 @@ app.use((err,req,res,next)=>{
 
 //start the server
 
-app.listen(port,host,()=>{
+// app.listen(port,host,()=>{
 
-console.log("server running on",port);
-});
+// console.log("server running on",port);
+// });
