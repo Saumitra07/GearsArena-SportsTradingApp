@@ -8,11 +8,11 @@ const Schema=mongoose.Schema;
 
 
 
-const itemSchema=new Schema({
-    itemName:{type:String,required:[true,'itemName is required']},
-    itemDescription:{type:String,required:[true,'itemName is required']},
-    itemImage:{type:String,required:[true,'itemName is required']}
-},{timestamps:true});
+// const itemSchema=new Schema({
+//     itemName:{type:String,required:[true,'itemName is required']},
+//     itemDescription:{type:String,required:[true,'itemName is required']},
+//     itemImage:{type:String,required:[true,'itemName is required']}
+// },{timestamps:true});
 
 const tradeSchema=new Schema({
     categoryName:{type:String,required:[true,'categoryName is required']},
@@ -20,7 +20,7 @@ const tradeSchema=new Schema({
         type: [{
             itemName:{type:String,required:[true,'itemName is required']},
             itemDescription:{type:String,required:[true,'itemName is required']},
-            itemImage:{type:String,required:[true,'itemName is required']},
+            itemImage:{type:String,required:[true,'itemImage is required']},
             ceeatedAt:{type:Date,default:Date.now}
         },{timestamps:true}],
         default: undefined

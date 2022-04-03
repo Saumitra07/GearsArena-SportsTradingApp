@@ -5,23 +5,23 @@
         <form method="POST" action="/trades/<%=item._id%>?_method=PUT">
           <div class="row mb-3">
       
-            <!-- <label for="item_name" class="col-sm-3 col-form-label text-center">Sport</label>
+            <label for="item_name" class="col-sm-3 col-form-label text-center">Sport</label>
             <div class="col-sm-9">
            
-              <input type="text" class="form-control" name="categoryName" id="category" value="<%= item.categoryName%>">
-            </div> -->
+              <input type="text" class="form-control" name="categoryName" required id="category" value="<%=category%>">
+            </div>
           </div>
           <div class="row mb-3">
             <label for="item_name" class="col-sm-3 col-form-label text-center">Item Name</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" name="itemName" id="item_name" value="<%= item.itemName %>">
+              <input type="text" class="form-control" name="itemName" required id="item_name" value="<%= item.itemName %>">
             </div>
           </div>
      
           <div class="row mb-3">
             <label for="description" class="col-sm-3 col-form-label text-center">description</label>
             <div class="col-sm-9">
-              <textarea class="form-control" name="itemDescription" id="description" rows="3"><%= item.itemDescription %></textarea>
+              <textarea class="form-control" name="itemDescription" required id="description" rows="3"><%= item.itemDescription %></textarea>
             </div>
           </div>
           <!-- <a href="./trades.html" class="btn btn-primary btn-create-trade">Create Trade</a> -->
