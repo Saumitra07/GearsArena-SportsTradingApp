@@ -43,7 +43,7 @@ app.use('/',mainRoutes);
 
 //connect to database
 
-mongoose.connect('mongodb://localhost:27017/test_db',{useNewUrlParser:true,useUnifiedTopology:true})
+mongoose.connect('mongodb://localhost:27017/trade_sports',{useNewUrlParser:true,useUnifiedTopology:true})
 .then(()=>{
     app.listen(port, host, ()=>{
         console.log('Server is running on port', port);
