@@ -51,6 +51,7 @@ exports.create = (req, res,next) => {
 
   let item = req.body;
    item.itemImage='/images/baseball1.jpeg';
+   item.trader=req.session.user;
 
   model.findOneAndUpdate({categoryName:item.categoryName},{$push:{items:item}},{runValidators: true,upsert:true})
   .then(trade=>{

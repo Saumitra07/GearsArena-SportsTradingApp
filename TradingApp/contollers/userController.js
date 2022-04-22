@@ -1,7 +1,11 @@
 const model = require('../models/user');
 const User=require('../models/user');
+const ObjectId = require('mongodb').ObjectId;
+
+const Trade=require('../models/item');
 
 const flash=require('connect-flash');
+const { json } = require('express');
 exports.index=(req,res,next)=>{
 
     res.render('index');
@@ -92,16 +96,39 @@ exports.loginUser=(req,res,next)=>
 
 exports.profile=(req,res,next)=>{
     let id=req.session.user;
-    // console.log(req.flash());
+   
     console.log("logged in user is",id);
-    User.findById(id)
-    .then(user=>
-        {
-            console.log("user details are",user);
-            res.render('./user/profile',{user})
-        }
-        )
+
+    
+ 
+
+    // Trade.aggregate([ { $unwind :  '$items' },{$match : { "items.trader" :ObjectId(id)}}]).then(tradesss=>{
+    //         console.log(JSON.stringify(tradesss))
+    //     })
+    //     .catch(err=>next(err));
+
+
+    // User.findById(id)
+    // .then(user=>
+    //     {
+    //         console.log("user details are",user);
+    //         res.render('./user/profile',{user})
+    //     }
+    //     )
+    // .catch(err=>next(err));
+
+    Promise.all([User.findById(id),Trade.aggregate([ { $unwind :  '$items' },{$match : { "items.trader" :ObjectId(id)}}])]) 
+    .then(results=>{
+
+        const[user,trades]=results;
+        console.log(trades);
+        res.render('./user/profile', {user,trades})
+    
+    
+    })
     .catch(err=>next(err));
+
+
 
 }
 
