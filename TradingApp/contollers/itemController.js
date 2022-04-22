@@ -1,6 +1,6 @@
 const e = require('express');
 const model = require('../models/item')
-
+const flash=require('connect-flash');
 
 exports.index = (req, res) => {
   model.find()
@@ -11,12 +11,12 @@ exports.index = (req, res) => {
 exports.getTrade = (req, res,next) => {
 
   let id = req.params.id;
-  if(!id.match(/^[0-9a-fA-F]{24}$/))
-  {
-      let err=new Error('Invalid trade id');
-      err.status=400;
-      return next(err);
-  }
+  // if(!id.match(/^[0-9a-fA-F]{24}$/))
+  // {
+  //     let err=new Error('Invalid trade id');
+  //     err.status=400;
+  //     return next(err);
+  // }
 
   model.findOne({"items._id":id})
   .then(item=>{
@@ -55,6 +55,7 @@ exports.create = (req, res,next) => {
 
   model.findOneAndUpdate({categoryName:item.categoryName},{$push:{items:item}},{runValidators: true,upsert:true})
   .then(trade=>{
+    req.flash('success','New trade succesfully created');
     return res.redirect('/trades');
   })
   .catch(err=>{
@@ -67,12 +68,12 @@ exports.create = (req, res,next) => {
 
 exports.delete = (req, res,next) => {
   let id = req.params.id;
-  if(!id.match(/^[0-9a-fA-F]{24}$/))
-  {
-      let err=new Error('Invalid trade id');
-      err.status=400;
-      return next(err);
-  }
+  // if(!id.match(/^[0-9a-fA-F]{24}$/))
+  // {
+  //     let err=new Error('Invalid trade id');
+  //     err.status=400;
+  //     return next(err);
+  // }
      model.findOneAndUpdate(
       { "items._id":id },
       { $pull:{"items":{"_id":id}}})
@@ -80,6 +81,7 @@ exports.delete = (req, res,next) => {
         if(trade)
         {
            // console.log(trade);
+           req.flash('success',' trade succesfully deleted');
           return  res.redirect('/trades');
   
         }
@@ -100,12 +102,12 @@ exports.delete = (req, res,next) => {
 exports.edit = (request, response, next) => {
   let id = request.params.id;
 
-  if(!id.match(/^[0-9a-fA-F]{24}$/))
-    {
-        let err=new Error('Invalid trade id');
-        err.status=400;
-        return next(err);
-    }
+  // if(!id.match(/^[0-9a-fA-F]{24}$/))
+  //   {
+  //       let err=new Error('Invalid trade id');
+  //       err.status=400;
+  //       return next(err);
+  //   }
 
  
   model.findOne({"items._id":id})
@@ -115,6 +117,7 @@ exports.edit = (request, response, next) => {
             model.findOne({_id:item._id},{items:{$elemMatch:{_id:id}}})
             .then(item1=>{
              // console.log(item1);
+             request.flash('success',' trade succesfully edited');
               return response.render('./trades/edit.ejs',{item:item1.items[0],category:item.categoryName});
             }  
             )
@@ -138,12 +141,12 @@ exports.update = (req, res,next) => {
 
   let id = req.params.id;
   
-  if(!id.match(/^[0-9a-fA-F]{24}$/))
-    {
-        let err=new Error('Invalid trade id');
-        err.status=400;
-        return next(err);
-    }
+  // if(!id.match(/^[0-9a-fA-F]{24}$/))
+  //   {
+  //       let err=new Error('Invalid trade id');
+  //       err.status=400;
+  //       return next(err);
+  //   }
   model.findOneAndUpdate(
     { "items._id":id },
     { $set: { 'items.$.itemName': req.body.itemName,
