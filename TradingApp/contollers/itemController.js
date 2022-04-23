@@ -117,7 +117,7 @@ exports.edit = (request, response, next) => {
             model.findOne({_id:item._id},{items:{$elemMatch:{_id:id}}})
             .then(item1=>{
              // console.log(item1);
-             request.flash('success',' trade succesfully edited');
+             
               return response.render('./trades/edit.ejs',{item:item1.items[0],category:item.categoryName});
             }  
             )
@@ -155,6 +155,7 @@ exports.update = (req, res,next) => {
       if(item)
       {
             console.log(item);
+            req.flash('success',' trade succesfully edited');
             res.redirect('/trades/'+id);
 
       }

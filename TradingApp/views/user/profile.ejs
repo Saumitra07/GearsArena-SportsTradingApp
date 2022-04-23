@@ -1,86 +1,53 @@
-<!-- <%- include('../partials/header.ejs')%>
-
-<main class="main_content">
-    <div class="container">
-      <div class="intro">
-       <p>Welcome, <%= user.firstName +" " + user.lastName  %> </p>
-      </div>
-    </div>
-  </main>
-
-
-
-
-
-
-
-
-
-<%- include('../partials/footer.ejs')%> -->
 
 <%- include('../partials/header.ejs') %>
-<p class="text-dark">Welcome, <%= user.firstName +" " + user.lastName  %> </p>
+
+
+
+
+
+
 <main class="main_content">
-
- 
-
-
-   
-      <!-- <div class="row"> -->
-            <% if(trades.length===0) { %>
+  <div class="container">
+    <div class="intro">
+      <h3 class="text-dark text-center" >Welcome, <%= user.firstName +" " + user.lastName  %> </h3>
+      
+      
+      <% if(trades.length===0) { %>
           
-                  <p class="text-dark"> No Items to trade in this category</p>
-                  
-          <% } else { %>
-            
-            <table class="table table-bordered" >
-              <tbody>
-                <tr>
-                  <th>Category</th>
-                  <th>Item</th>
-                </tr>
-              
-          <%  trades.forEach(trade=>{ %>
-              <!-- <div class="col-xl-4 col-lg-4 col-md-6 mb-4">
-                  <div class="bg-white"><img src="<%= trade.items.itemImage %>" alt="<%= trade.items.itemImage %>" class="img-gallary img-fluid card-img-top">
-                    <div class="p-4">
-                      <h5> <a href="/trades/<%=trade.items._id%>" class="text-dark"><%= trade.items.itemName %></a></h5>
-                      <h5 class="text-dark">Category: <%=trade.categoryName %></h5>
-                      
-                    </div>
-                  </div>
-                </div> -->
-
-                <tr>
-                  
-                  <td><%=trade.categoryName%></td>
-                  <td><a href="/trades/<%=trade.items._id%>"><%=trade.items.itemName%></a></td>
-                
-                  
-                </tr>
+        <h4 class="text-dark text-center "> You don't have any trades</h4>
+        
+<% } else { %>
+  <h4 class="text-dark text-center">Your trades</h4>
+  <table class="table table-bordered" >
+    <tbody>
+      <tr>
+        <th>Category</th>
+        <th>Item</th>
+      </tr>
+    
+<%  trades.forEach(trade=>{ %>
 
 
-                
-            <% })} %> 
-          </tbody>
-          </table>
-      <!-- </div>   -->
+      <tr>
+        
+        <td><%=trade.categoryName%></td>
+        <td><a href="/trades/<%=trade.items._id%>"><%=trade.items.itemName%></a></td>
+      
+        
+      </tr>
+
+
+      
+  <% })} %> 
+</tbody>
+</table>
+
+    </div>
+  </div>
+          
 
 
 </main>
 
-    
-
+  
   <%- include('../partials/footer.ejs') %>
-<!-- 
-  <% if (trades.length!=0){ 
-
-    trades.forEach(trade=>{ %>
-
-      <p color="black"><%=trade.items.itemName%> </p> 
-    
-
-
-   <% })
-
-  }%> -->
