@@ -28,8 +28,11 @@ exports.profile=(req,res,next)=>{
 
 exports.signup=(req,res,next)=>{
 
-   
     let user=new User(req.body);
+    if(user.email)
+    {
+        user.email=user.email.toLowerCase();
+    }
     user.save()
     .then(()=>res.redirect('/users/login'))
     .catch(err=>
@@ -54,7 +57,9 @@ exports.signup=(req,res,next)=>{
 
 exports.loginUser=(req,res,next)=>
 {
-    let email=req.body.email;
+    let email = req.body.email;
+    if(email)
+        email=email.toLowerCase();
     let password=req.body.password;
 
     User.findOne({email:email})

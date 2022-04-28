@@ -2,7 +2,7 @@ const express=require('express');
 const controller=require('../contollers/itemController');
 
 const {isGuest,isAuthenticated,isTrader} =require('../middleware/auth');
-const {validateId} =require('../middleware/validator');
+const {validateId,validateItem,validateResult} =require('../middleware/validator');
 
 const router=express.Router();
 
@@ -10,7 +10,7 @@ router.get('/',controller.index);
 
 router.get('/new',isAuthenticated,controller.new);
 
-router.post('/',controller.create);
+router.post('/',validateItem,validateResult,controller.create);
 
 router.get('/:id',validateId,controller.getTrade);
 
@@ -19,7 +19,7 @@ router.get('/:id/edit',isAuthenticated,isTrader,validateId,controller.edit);
 
 
 
-router.put('/:id',isAuthenticated,isTrader,validateId,controller.update);
+router.put('/:id',isAuthenticated,isTrader,validateId,validateItem,validateResult,controller.update);
 
 
 
