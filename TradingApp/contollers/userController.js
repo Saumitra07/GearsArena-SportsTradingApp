@@ -2,6 +2,7 @@ const model = require('../models/user');
 const User=require('../models/user');
 const ObjectId = require('mongodb').ObjectId;
 
+const watchModel=require('../models/watch');
 const Trade=require('../models/item');
 
 const flash=require('connect-flash');
@@ -122,12 +123,38 @@ exports.profile=(req,res,next)=>{
     //     )
     // .catch(err=>next(err));
 
-    Promise.all([User.findById(id),Trade.aggregate([ { $unwind :  '$items' },{$match : { "items.trader" :ObjectId(id)}}])]) 
+    Promise.all([User.findById(id),Trade.aggregate([ { $unwind :  '$items' },{$match : { "items.trader" :ObjectId(id)}}]),
+        watchModel.findOne({user:req.session.user})            
+            ]) 
     .then(results=>{
 
-        const[user,trades]=results;
-        console.log(trades);
-        res.render('./user/profile', {user,trades})
+        const[user,trades,watchedItems]=results;
+        // console.log(trades);
+        // watchedItems=watchtrades.watchedTrades;
+
+        console.log(watchedItems)
+
+        //console.log(watchtrades.watchedTrades);
+
+       
+
+        // watchtrades.watchedTrades.forEach(tradeItem=>{
+
+        //     Trade.findOne({"items._id":tradeItem},{items:{$elemMatch:{_id:tradeItem}}}).then(result=>{
+        //             console.log(result.items);
+        //            // watchedItems.push(result.items)
+
+        //     })
+        //     .catch(err=>{
+        //         console.log("query resulted in error")
+        //     })
+
+            
+        // })
+
+
+        // console.log("final watched items are",watchedItems)
+        res.render('./user/profile', {user,trades,watchedItems})
     
     
     })

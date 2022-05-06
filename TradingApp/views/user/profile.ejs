@@ -42,10 +42,54 @@
 </tbody>
 </table>
 
-    </div>
-  </div>
-          
 
+  
+<% if(watchedItems) {%>
+
+  <%if(watchedItems.watchedTrades.length!=0){%>
+
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th>Items</th>
+          <th>action</th>
+        </tr>
+      
+  <%  watchedItems.watchedTrades.forEach(item=>{ %>
+  
+  
+        <tr>
+          
+          <td><%=item.trade_title%></td>
+          <td>
+            
+            <form action="/trades/<%=item.trade_item%>/unwatchtrade?_method=DELETE" method="POST">
+
+              <button type="submit" class="btn btn-primary">Unwatch</button>
+
+            </form>
+           </td>
+        
+          
+        </tr>
+  
+  
+        
+    <% }) %> 
+  </tbody>
+
+    </table>
+    
+  <%}}%>
+
+
+
+  </div>
+</div>
+  
+  
+
+  
 
 </main>
 

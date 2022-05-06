@@ -6,8 +6,13 @@
         <div class="col-xl-8 col-lg-8 col-md-6 product_card"> 
           <h2><%= item.itemName %></h2>
           <p ><%= item.itemDescription %></p>
-          <a href="/trades" class="btn btn-primary">Trade</a>
-          <a href="/trades" class="btn btn-primary">Rate</a>
+          <form>
+            <input type="hidden" name="itemName" value="<%= item.itemName %>"/>
+            <% if(user!=item.trader) { %>
+              <a href="/trades" class="btn btn-primary">Trade</a>
+              <button type="submit" class="btn btn-primary" formmethod="POST" formaction="/trades/<%=item._id%>/watchtrade">Watch</button>
+              <% } %>
+          </form>
          
         </div>
 
@@ -16,7 +21,7 @@
     
       <div class="col-xl-4 col-lg-4 col-md-4 product_card"> 
         <form>
-          
+
           <% if(user==item.trader) { %>
 
             <button type="submit" class="btn btn-primary" formmethod="GET" formaction="/trades/<%=item._id%>/edit" >Edit</button>

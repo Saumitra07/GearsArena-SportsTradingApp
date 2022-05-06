@@ -17,6 +17,9 @@ router.get('/:id',validateId,controller.getTrade);
 
 router.get('/:id/edit',isAuthenticated,isTrader,validateId,controller.edit);
 
+router.post('/:id/watchtrade',isAuthenticated,validateId,controller.watchTrade)
+
+router.delete('/:id/unwatchtrade',isAuthenticated,validateId,controller.unwatchTrade)
 
 
 router.put('/:id',isAuthenticated,isTrader,validateId,validateItem,validateResult,controller.update);

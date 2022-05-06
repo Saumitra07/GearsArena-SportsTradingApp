@@ -88,18 +88,18 @@ app.use((req,res,next)=>{
   
 })
 
-app.use((err,req,res,next)=>{
-    if(!err.status)
-    {
-        err.status=500;
-        err.message=("Internal Server Error");
+// app.use((err,req,res,next)=>{
+//     if(!err.status)
+//     {
+//         err.status=500;
+//         err.message=("Internal Server Error");
 
 
-    }
+//     }
    
-    res.status(err.status);
-    res.render('error',{error:err});
-})
+//     res.status(err.status);
+//     res.render('error',{error:err});
+// })
 
 
 //start the server

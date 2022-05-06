@@ -2,6 +2,8 @@ const e = require('express');
 const model = require('../models/item')
 const flash=require('connect-flash');
 
+const watchModel=require('../models/watch');
+
 exports.index = (req, res) => {
   model.find()
   .then(trades=>res.render('./trades/index.ejs', { trades: trades }))
@@ -11,12 +13,6 @@ exports.index = (req, res) => {
 exports.getTrade = (req, res,next) => {
 
   let id = req.params.id;
-  // if(!id.match(/^[0-9a-fA-F]{24}$/))
-  // {
-  //     let err=new Error('Invalid trade id');
-  //     err.status=400;
-  //     return next(err);
-  // }
 
   model.findOne({"items._id":id})
   .then(item=>{
@@ -171,5 +167,54 @@ exports.update = (req, res,next) => {
             err.status=400;
         next(err);}
 );
+
+}
+
+
+exports.watchTrade=(req,res,next)=>{
+
+
+  let id = req.params.id;
+  console.log(req.body.itemName)
+  watchModel.findOneAndUpdate({"user":req.session.user},{$push:{watchedTrades:{trade_item:id,trade_title:req.body.itemName}}},{upsert:true})
+  .then(item=>{
+    if(item)
+    {
+      console.log("item is",item);
+      return res.redirect('/users/profile')
+    }
+    else
+    {
+      let err = new Error('Cannot find a item with id ' + id);
+      err.status = 404;
+       next(err);
+    }
+  })
+  .catch(err=>next(err));
+}
+
+exports.unwatchTrade=(req,res,next)=>
+{
+
+  id=req.params.id;
+  watchModel.findOneAndUpdate(
+    { "watchedTrades.trade_item":id },
+    { $pull:{"watchedTrades":{"trade_item":id}}})
+    .then(trade=>{
+      if(trade)
+      {
+         // console.log(trade);
+         req.flash('success',' trade unwatched deleted');
+        return  res.redirect('/users/profile');
+
+      }
+      else
+      { 
+          let err = new Error('Cannot find a item with id ' + id);
+          err.status = 404;
+           next(err);
+
+      }})
+      .catch(err=>next(err));
 
 }
