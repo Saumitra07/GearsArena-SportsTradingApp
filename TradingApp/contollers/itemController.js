@@ -13,27 +13,88 @@ exports.index = (req, res) => {
 exports.getTrade = (req, res,next) => {
 
   let id = req.params.id;
+  Promise.all([model.findOne({"items._id":id}), watchModel.findOne({user: req.session.user}, {watchedTrades: {$elemMatch:{trade_item:id}}})])
+        .then(result => {
+            const [item, watchedItems] = result
+            if (item) {
+              model.findOne({_id:item._id},{items:{$elemMatch:{_id:id}}})
+                    .then(item1 => {
+                          // if(!watchedItems)
+                          // {
+                          //   console.log("In show", watchedItems==null);
+                            
+                          // }
+                          
+                           return res.render('./trades/show.ejs',{item:item1.items[0],watchedItems});
+                        }
+                    )
+                    .catch(err => {
+                        next(err)
+                    });
+            }
+            else {
+                let err = new Error('Cannot find item with id ' + id);
+                err.status = 404;
+                next(err);
+            }
+        })
+        .catch(err => {
+            next(err)
+        });
 
-  model.findOne({"items._id":id})
-  .then(item=>{
-          if(item)
-          {
-            model.findOne({_id:item._id},{items:{$elemMatch:{_id:id}}})
-            .then(item1=>{
-              console.log(item1);
-              return res.render('./trades/show.ejs',{item:item1.items[0]});
-            }  
-            )
-            .catch(err=>next(err));
-          }
-          else{
-            let err=new Error('can not find trade id'+id);
-            err.status=404;
-            return next(err);
-          }
+
+
+
+
+
+
+
+  // Promise.all([model.findOne({"items._id":id}),watchModel.findOne({"user":req.session.user},{$elemMatch:{watchedTrades:{trade_item:id}}})]) 
+  // .then(result=>{
+  //   const [item,watchedItems]=result;
+  //   console.log(watchedItems);
+  //   if(item)
+  //   {
+  //     model.findOne({_id:item._id},{items:{$elemMatch:{_id:id}}})
+  //     .then(item1=>{
+  //      // console.log(item1);
+  //       return res.render('./trades/show.ejs',{item:item1.items[0]});
+  //     }  
+  //     )
+  //     .catch(err=>next(err));
+
+  //   }
+  
+  //     else{
+  //       let err=new Error('can not find trade id'+id);
+  //       err.status=404;
+  //       return next(err);
+  //     }
+    
+
+  // }).catch(err=>next(err));
+
+
+  // model.findOne({"items._id":id})
+  // .then(item=>{
+  //         if(item)
+  //         {
+  //           model.findOne({_id:item._id},{items:{$elemMatch:{_id:id}}})
+  //           .then(item1=>{
+  //             console.log(item1);
+  //             return res.render('./trades/show.ejs',{item:item1.items[0]});
+  //           }  
+  //           )
+  //           .catch(err=>next(err));
+  //         }
+  //         else{
+  //           let err=new Error('can not find trade id'+id);
+  //           err.status=404;
+  //           return next(err);
+  //         }
         
-  })
-  .catch(err=>next(err));
+  // })
+  // .catch(err=>next(err));
 
 
 }
@@ -178,17 +239,19 @@ exports.watchTrade=(req,res,next)=>{
   console.log(req.body.itemName)
   watchModel.findOneAndUpdate({"user":req.session.user},{$push:{watchedTrades:{trade_item:id,trade_title:req.body.itemName}}},{upsert:true})
   .then(item=>{
-    if(item)
-    {
-      console.log("item is",item);
-      return res.redirect('/users/profile')
-    }
-    else
-    {
-      let err = new Error('Cannot find a item with id ' + id);
-      err.status = 404;
-       next(err);
-    }
+    // if(item)
+    // {
+    //   console.log("item is",item);
+    //    res.redirect('/users/profile')
+    // }
+    // else
+    // {
+    //   console.log("item is",item);
+    //   let err = new Error('Cannot find a item with id ' + id);
+    //   err.status = 404;
+    //    next(err);
+    // }
+    res.redirect('/users/profile')
   })
   .catch(err=>next(err));
 }
@@ -204,7 +267,7 @@ exports.unwatchTrade=(req,res,next)=>
       if(trade)
       {
          // console.log(trade);
-         req.flash('success',' trade unwatched deleted');
+         req.flash('success',' trade successfully unwatched');
         return  res.redirect('/users/profile');
 
       }

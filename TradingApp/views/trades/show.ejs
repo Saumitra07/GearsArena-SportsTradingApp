@@ -10,7 +10,26 @@
             <input type="hidden" name="itemName" value="<%= item.itemName %>"/>
             <% if(user!=item.trader) { %>
               <a href="/trades" class="btn btn-primary">Trade</a>
-              <button type="submit" class="btn btn-primary" formmethod="POST" formaction="/trades/<%=item._id%>/watchtrade">Watch</button>
+               
+              
+ <% if(watchedItems!=null) { %>
+
+
+  <%if(watchedItems.watchedTrades!=null) {%>
+    <button type="submit" class=" btn btn-primary" formmethod="POST" formaction="/trades/<%=watchedItems.watchedTrades[0].trade_item%>/unwatchtrade?_method=DELETE">Unwatch</button>
+<%}
+else {%>
+<button type="submit" class="btn btn-primary" formmethod="POST" formaction="/trades/<%=item._id%>/watchtrade">Watch</button>
+<%}} else {%>
+
+<button type="submit" class="btn btn-primary" formmethod="POST" formaction="/trades/<%=item._id%>/watchtrade">Watch</button>
+<%} %> 
+
+                              
+            
+            
+
+
               <% } %>
           </form>
          
