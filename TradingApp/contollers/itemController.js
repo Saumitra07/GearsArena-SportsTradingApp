@@ -2,6 +2,8 @@ const e = require('express');
 const model = require('../models/item')
 const flash=require('connect-flash');
 
+const ObjectId = require('mongodb').ObjectId;
+
 const watchModel=require('../models/watch');
 
 exports.index = (req, res) => {
@@ -108,7 +110,8 @@ exports.create = (req, res,next) => {
 
   let item = req.body;
    item.itemImage='/images/baseball1.jpeg';
-   item.trader=req.session.user;
+   item.trader=req.session.user;  
+   item.status="available";
 
   model.findOneAndUpdate({categoryName:item.categoryName},{$push:{items:item}},{runValidators: true,upsert:true})
   .then(trade=>{
@@ -279,5 +282,76 @@ exports.unwatchTrade=(req,res,next)=>
 
       }})
       .catch(err=>next(err));
+
+}
+
+exports.offer=(req,res,next)=>{
+
+  let id=req.session.user;
+
+//  model.aggregate([ { $unwind :  '$items' },{$match : { "items.trader" :ObjectId(id),"items.status":"available"}}])
+
+let trade_id=req.params.id;
+
+  //model.findOne({"items._id":trade_id},{items:{$elemMatch:{_id:trade_id}}})
+
+  Promise.all([model.findOne({"items._id":trade_id},{items:{$elemMatch:{_id:trade_id}}}), model.aggregate( [{ $unwind :  '$items' },{$match : { "items.trader" :ObjectId(id),"items.status":"available"}}]) ])
+.then(results=>{
+
+  const[current_trade,userAvailableTrades]=results;
+ 
+  console.log(current_trade);
+
+  res.render('./trades/offer', {current_trade,userAvailableTrades})
+
+
+})
+.catch(err=>next(err));
+
+
+}
+
+
+exports.processTrade=(req,res,next)=>{
+
+  let id=req.params.id;
+
+  let initiatedId=req.body.trade_request_id;
+
+  let initiatedTradeOwner= req.body.trade_request_owner;
+
+  let offer={
+    offeredByUser:initiatedTradeOwner,
+    offeredAgainst:initiatedId
+  }
+
+ console.log("first request is",offer);
+  //Promise.all([model.findOne({"items._id":id},{items:{$elemMatch:{_id:id}}})])
+
+Promise.all([model.findOneAndUpdate(
+  {"items._id":initiatedId},
+  {$set:{
+    'items.$.status':"pending",
+    'items.$.initiatedOffer.tradeStartedBy':req.session.user,
+    'items.$.initiatedOffer.tradeOffer':id,
+  }}
+),
+model.findOneAndUpdate(
+  { "items._id":id },
+  { $set: { 'items.$.status': "pending",
+  'items.$.offer.offeredByUser':initiatedTradeOwner,'items.$.offer.offeredAgainst':initiatedId}} )
+])
+.then(results=>{
+  const [initiatedTrade,offeredTrade] =results;
+
+  console.log("initiated trade is",initiatedTrade);
+  console.log("offered trade is",offeredTrade);
+  return res.redirect('/trades');
+
+})
+.catch(err=>{
+  next(err);
+}
+  )
 
 }

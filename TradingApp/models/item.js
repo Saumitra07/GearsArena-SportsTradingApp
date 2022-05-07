@@ -15,6 +15,17 @@ const tradeSchema=new Schema({
             trader: {type: Schema.Types.ObjectId,ref:'User'},
             itemDescription:{type:String,required:[true,'itemName is required']},
             itemImage:{type:String,required:[true,'itemImage is required']},
+            status:{type:String},
+            offer:{
+                
+                    offeredByUser: {type: Schema.Types.ObjectId,ref:'User'},
+                    offeredAgainst:{type:Schema.Types.ObjectId}
+            },
+            initiatedOffer:{
+                
+                tradeStartedBy: {type: Schema.Types.ObjectId,ref:'User'},
+                tradeOffer:{type:Schema.Types.ObjectId}
+        },
             createdAt:{type:Date,default:Date.now}
         },{timestamps:true}],
         default: undefined

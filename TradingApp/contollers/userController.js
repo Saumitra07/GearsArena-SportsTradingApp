@@ -107,54 +107,23 @@ exports.profile=(req,res,next)=>{
 
     
  
-
-    // Trade.aggregate([ { $unwind :  '$items' },{$match : { "items.trader" :ObjectId(id)}}]).then(tradesss=>{
-    //         console.log(JSON.stringify(tradesss))
-    //     })
-    //     .catch(err=>next(err));
-
-
-    // User.findById(id)
-    // .then(user=>
-    //     {
-    //         console.log("user details are",user);
-    //         res.render('./user/profile',{user})
-    //     }
-    //     )
-    // .catch(err=>next(err));
-
+    
     Promise.all([User.findById(id),Trade.aggregate([ { $unwind :  '$items' },{$match : { "items.trader" :ObjectId(id)}}]),
-        watchModel.findOne({user:req.session.user})            
+        watchModel.findOne({user:req.session.user})  ,
+        Trade.aggregate([ { $unwind :  '$items' },{$match : { "items.initiatedOffer.tradeStartedBy" :ObjectId(req.session.user)}}])
+        
             ]) 
     .then(results=>{
 
-        const[user,trades,watchedItems]=results;
+        const[user,trades,watchedItems,yourRequestedTrades]=results;
         // console.log(trades);
-        // watchedItems=watchtrades.watchedTrades;
+        // watchedItems=watchtrades.watchedTrades;  
 
-        console.log(watchedItems)
+        console.log("your requested trades",yourRequestedTrades[0].items.initiatedOffer.tradeOffer);
 
-        //console.log(watchtrades.watchedTrades);
+       // console.log(watchedItems)
 
-       
-
-        // watchtrades.watchedTrades.forEach(tradeItem=>{
-
-        //     Trade.findOne({"items._id":tradeItem},{items:{$elemMatch:{_id:tradeItem}}}).then(result=>{
-        //             console.log(result.items);
-        //            // watchedItems.push(result.items)
-
-        //     })
-        //     .catch(err=>{
-        //         console.log("query resulted in error")
-        //     })
-
-            
-        // })
-
-
-        // console.log("final watched items are",watchedItems)
-        res.render('./user/profile', {user,trades,watchedItems})
+        res.render('./user/profile', {user,trades,watchedItems,yourRequestedTrades})
     
     
     })

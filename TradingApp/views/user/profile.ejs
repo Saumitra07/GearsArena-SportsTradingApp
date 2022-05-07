@@ -23,6 +23,8 @@
       <tr>
         <th>Category</th>
         <th>Item</th>
+        <th>Status</th>
+        <th>Action</th>
       </tr>
     
 <%  trades.forEach(trade=>{ %>
@@ -32,8 +34,25 @@
         
         <td><%=trade.categoryName%></td>
         <td><a href="/trades/<%=trade.items._id%>"><%=trade.items.itemName%></a></td>
-      
-        
+        <td><%= trade.items.status%></td>
+        <td>
+          <form>
+        <%  if(trade.items.status=="pending")
+            { 
+           
+              if(trade.items.offer!=null)
+              {%>
+                <button type="submit">Cancel</button>
+             <% }
+              else
+              { %>
+                <button type="submit" class="btn btn-primary">Manage Offer</button>
+                
+             <% }
+
+            }%>
+          </form>
+        </td>
       </tr>
 
 
@@ -84,6 +103,38 @@
 
 
 
+  <%if(yourRequestedTrades.length!=0){%>
+    <h4 class="text-dark text-center">Trade initiated </h4>
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th>Items</th>
+          <th>action</th>
+        </tr>
+      
+  <%  yourRequestedTrades.forEach(trade=>{ %>
+  
+  
+        <tr>
+          
+          <td><%=trade.items.itemName %></td>
+          <td>
+            
+            <form action="" method="POST">
+
+              <button type="submit" class="btn btn-primary">Cancel</button>
+
+            </form>
+           </td>
+        
+          
+        </tr>
+
+    <% }) %> 
+  </tbody>
+
+    </table>
+    <% } %>
   </div>
 </div>
   
