@@ -23,5 +23,6 @@ router.get('/profile',isAuthenticated,controller.profile);
 
 router.get('/logout',isAuthenticated,controller.logout);
 
+router.delete('/profile/:id/cancelTrade',isAuthenticated,controller.cancelInitiatedTrade)
 
 module.exports=router;

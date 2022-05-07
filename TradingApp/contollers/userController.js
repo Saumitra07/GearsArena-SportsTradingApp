@@ -119,7 +119,7 @@ exports.profile=(req,res,next)=>{
         // console.log(trades);
         // watchedItems=watchtrades.watchedTrades;  
 
-        console.log("your requested trades",yourRequestedTrades[0].items.initiatedOffer.tradeOffer);
+        //console.log("your requested trades",yourRequestedTrades[0].items.initiatedOffer.tradeStartedBy);
 
        // console.log(watchedItems)
 
@@ -129,6 +129,50 @@ exports.profile=(req,res,next)=>{
     })
     .catch(err=>next(err));
 
+
+
+}
+
+
+exports.cancelInitiatedTrade=(req,res,next)=>{
+
+    let offeredItemId=req.body.offeredItemId;
+
+    console.log("offered item id is",offeredItemId);
+
+    let initiatedTradeId=req.params.id;
+    Promise.all([Trade.findOneAndUpdate(
+        {"items._id":initiatedTradeId},
+      {  $set:{
+            'items.$.status':"available"
+        },
+        $unset:{
+            'items.$.initiatedOffer':""
+        }}
+      ),
+      Trade.findOneAndUpdate(
+        { "items._id":offeredItemId },
+        { $set: { 
+
+            'items.$.status':"available"
+        },
+        
+            $unset:{
+                'items.$.offer':""
+            }
+        } )
+      ])
+      .then(result=>{
+            
+            const [initiatedCancelTrade, offeredCancelTrade]=result;
+
+            // console.log("initiated trade cancel",initiatedCancelTrade);
+            
+            // console.log("offered trade cancel",offeredCancelTrade);
+
+            return res.redirect('/users/profile');
+      })
+      .catch(err=>next(err));
 
 
 }

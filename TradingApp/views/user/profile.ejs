@@ -38,19 +38,10 @@
         <td>
           <form>
         <%  if(trade.items.status=="pending")
-            { 
-           
-              if(trade.items.offer!=null)
-              {%>
-                <button type="submit">Cancel</button>
-             <% }
-              else
-              { %>
+            { %>
                 <button type="submit" class="btn btn-primary">Manage Offer</button>
                 
-             <% }
-
-            }%>
+             <% }%>
           </form>
         </td>
       </tr>
@@ -120,8 +111,9 @@
           <td><%=trade.items.itemName %></td>
           <td>
             
-            <form action="" method="POST">
+            <form action="/users/profile/<%= trade.items._id %>/cancelTrade?_method=DELETE" method="POST">
 
+              <input type="hidden" name="offeredItemId" value="<%=trade.items.initiatedOffer.tradeOffer%>"/>
               <button type="submit" class="btn btn-primary">Cancel</button>
 
             </form>
