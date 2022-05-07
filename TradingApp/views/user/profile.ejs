@@ -37,11 +37,24 @@
         <td><%= trade.items.status%></td>
         <td>
           <form>
-        <%  if(trade.items.status=="pending")
-            { %>
-                <button type="submit" class="btn btn-primary">Manage Offer</button>
+            <%  if(trade.items.status=="pending")
+            { 
+           
+              if(trade.items.offer!=null)
+              {%>
+                <input type="hidden" name="requestedItem" value="<%=trade.items.offer.offeredAgainst%>" />
+                <button type="submit" class="btn-primary" formaction="/users/profile/<%=trade.items._id %>/manageTrade" formmethod="GET"> Manage Intiated Offer</button>
+             <% }
+              else
+              { %>
+                <input type="hidden" name="requestedItem" value="<%=trade.items.initiatedOffer.tradeOffer%>" />
+                <button type="submit" class="btn btn-primary" formmethod="GET" formaction="/users/profile/<%=trade.items._id %>/responseToOffer">Manage received Offer</button>
                 
-             <% }%>
+             <% }
+
+            }%>
+
+
           </form>
         </td>
       </tr>
@@ -95,7 +108,7 @@
 
 
   <%if(yourRequestedTrades.length!=0){%>
-    <h4 class="text-dark text-center">Trade initiated </h4>
+    <h4 class="text-dark text-center">Your Offers </h4>
     <table class="table table-bordered">
       <tbody>
         <tr>

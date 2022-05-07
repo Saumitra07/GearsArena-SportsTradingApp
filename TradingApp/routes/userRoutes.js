@@ -21,7 +21,13 @@ router.post('/login',loginLimiter,isGuest,validateLogin,validateResult,controlle
 
 router.get('/profile',isAuthenticated,controller.profile);
 
+router.get('/profile/:id/manageTrade/',isAuthenticated,controller.manageTrade)
+
+router.get('/profile/:id/responseToOffer/',isAuthenticated,controller.responseToOffer)
+
 router.get('/logout',isAuthenticated,controller.logout);
+
+router.post('/profile/:id/acceptTrade',isAuthenticated,controller.acceptTrade)
 
 router.delete('/profile/:id/cancelTrade',isAuthenticated,controller.cancelInitiatedTrade)
 

@@ -177,6 +177,97 @@ exports.cancelInitiatedTrade=(req,res,next)=>{
 
 }
 
+exports.manageTrade=(req,res,next)=>{
+
+    let offeredId=req.params.id;
+    let requestedItem=req.query.requestedItem;
+    console.log("requested item is",requestedItem)
+
+    Promise.all([ Trade.findOne( {"items._id":offeredId},{items:{$elemMatch:{_id:offeredId}}}),
+    Trade.findOne( {"items._id":requestedItem},{items:{$elemMatch:{_id:requestedItem}}})])
+
+   .then(
+        result=>{
+            const [offeredTrade,requestedTrade]=result;
+            console.log("offered Trade is",offeredTrade );
+            console.log("requested trade is",requestedTrade)
+            res.render('./user/manage',{offeredTrade,requestedTrade,result})
+        }
+    )
+    .catch(err=>next(err));
+    
+
+   
+
+}
+
+exports.responseToOffer=(req,res,next)=>{
+    let offeredId=req.params.id;
+    let requestedItem=req.query.requestedItem;
+    console.log("requested item is",requestedItem)
+
+    Promise.all([ Trade.findOne( {"items._id":offeredId},{items:{$elemMatch:{_id:offeredId}}}),
+    Trade.findOne( {"items._id":requestedItem},{items:{$elemMatch:{_id:requestedItem}}})])
+
+   .then(
+        result=>{
+            const [offeredTrade,requestedTrade]=result;
+            console.log("offered Trade is",offeredTrade );
+            console.log("requested trade is",requestedTrade)
+            res.render('./user/respondOffer',{offeredTrade,requestedTrade,result})
+        }
+    )
+    .catch(err=>next(err));
+
+}
+
+
+exports.acceptTrade=(req,res,next)=>{
+    let offeredItemId=req.body.offeredItemId;
+
+    console.log("offered item id is",offeredItemId);
+
+    let initiatedTradeId=req.params.id;
+
+    
+    Promise.all([Trade.findOneAndUpdate(
+        {"items._id":initiatedTradeId},
+      {  $set:{
+            'items.$.status':"Traded"
+        },
+        $unset:{
+            'items.$.initiatedOffer':""
+        }}
+      ),
+      Trade.findOneAndUpdate(
+        { "items._id":offeredItemId },
+        { $set: { 
+
+            'items.$.status':"Traded"
+        },
+        
+            $unset:{
+                'items.$.offer':""
+            }
+        } )
+      ])
+      .then(result=>{
+            
+            const [initiatedCancelTrade, offeredCancelTrade]=result;
+
+            // console.log("initiated trade cancel",initiatedCancelTrade);
+            
+            // console.log("offered trade cancel",offeredCancelTrade);
+
+            return res.redirect('/users/profile');
+      })
+      .catch(err=>next(err));
+
+
+}
+
+
+
 exports.logout=(req,res,next)=>{
     req.session.destroy(err=>{
         if(err)

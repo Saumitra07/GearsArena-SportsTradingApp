@@ -1,0 +1,50 @@
+<%- include('../partials/header.ejs')%>
+<!-- <main class="main_content">
+<form action="/users/login" method="POST">
+    <label for="email">Email</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+    <label for="password">Password</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+    <button>Login</button><br>
+</form>
+</main>
+</body> -->
+<main class="main_content">
+    <div class="container">
+      <div class="form">
+          <table class="table table-bordered">
+              <tbody>
+              <tr>
+                  <td> </td>
+                  <td></td>
+                  <td>Action</td>
+              </tr>
+              <tr>
+                <td>
+                    <img src="<%=offeredTrade.items[0].itemImage%>" height="150px" width="150px">
+                    <p><%=offeredTrade.items[0].itemName%></p>
+                </td>
+                <td>
+                    <img src="<%=requestedTrade.items[0].itemImage %>" height="150px" width="150px">
+                    <p><%=requestedTrade.items[0].itemName %></p>
+                </td>
+
+                <td>
+                         
+                        <form action="/users/profile/<%= requestedTrade.items[0]._id %>/cancelTrade?_method=DELETE" method="POST">
+
+                            <input type="hidden" name="offeredItemId" value="<%=offeredTrade.items[0]._id%>"/>
+                            <button type="submit" class="btn btn-primary">Cancel</button>
+            
+                        </form>
+                  
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+      </div>
+    </div>
+  </main>
+
+    <%- include('../partials/footer.ejs')%>
