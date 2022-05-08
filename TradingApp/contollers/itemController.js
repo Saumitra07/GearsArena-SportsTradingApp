@@ -128,31 +128,35 @@ exports.create = (req, res,next) => {
 
 exports.delete = (req, res,next) => {
   let id = req.params.id;
-  // if(!id.match(/^[0-9a-fA-F]{24}$/))
-  // {
-  //     let err=new Error('Invalid trade id');
-  //     err.status=400;
-  //     return next(err);
-  // }
-     model.findOneAndUpdate(
-      { "items._id":id },
-      { $pull:{"items":{"_id":id}}})
-      .then(trade=>{
-        if(trade)
-        {
-           // console.log(trade);
-           req.flash('success',' trade succesfully deleted');
-          return  res.redirect('/trades');
+
+  console.log("offfered id is",req.body.offeredItem=="");
+
+  console.log("initiated item is",req.body.initiatedItem);
+
+  res.redirect('/users/profile');
+ 
+
+  // Promise.all([ model.findOneAndUpdate({"items._id":req.body.offeredItem}, {  $set:{
+  //   'items.$.status':"available"},$unset:{  'items.$.initiatedOffer':""}}),  model.findOneAndUpdate(
+  //     { "items._id":id },
+  //     { $pull:{"items":{"_id":id}}})])
+  //   .then(results=>{
+  //       const[OtherTrade,trade]=results;
+  //       if(trade)
+  //       {
+  //          // console.log(trade);
+  //          req.flash('success',' trade succesfully deleted');
+  //         return  res.redirect('/trades');
   
-        }
-        else
-        { 
-            let err = new Error('Cannot find a story with id ' + id);
-            err.status = 404;
-             next(err);
+  //       }
+  //       else
+  //       { 
+  //           let err = new Error('Cannot find a story with id ' + id);
+  //           err.status = 404;
+  //            next(err);
   
-        }})
-        .catch(err=>next(err));
+  //       }})
+  //       .catch(err=>next(err));
 
 
 }

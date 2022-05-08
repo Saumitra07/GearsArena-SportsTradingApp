@@ -52,6 +52,15 @@ else {%>
           <% if(user==item.trader) { %>
 
             <button type="submit" class="btn btn-primary" formmethod="GET" formaction="/trades/<%=item._id%>/edit" >Edit</button>
+            
+           <% if(item.offer!=""){  %>
+
+              <input type="hidden" name="offeredItem" value="<%=item.offer.offeredAgainst %>"/>
+
+            <% } else if(item.initiatedOffer!=""){ %>
+
+            <input type="hidden" name="initiatedItem" value="<%=item.initiatedOffer.tradeOffer %>"/>
+            <% } %>
             <button type="submit" class="btn btn-primary" formmethod="POST" formaction="/trades/<%=item._id%>?_method=DELETE">Delete</button>
 
           <% } %>
