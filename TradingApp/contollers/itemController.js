@@ -129,34 +129,86 @@ exports.create = (req, res,next) => {
 exports.delete = (req, res,next) => {
   let id = req.params.id;
 
+  console.log("you wanted to delete item id is",id);
+  
   console.log("offfered id is",req.body.offeredItem=="");
 
-  console.log("initiated item is",req.body.initiatedItem);
+  console.log("initiated item is",req.body.initiatedItem=="");
 
-  res.redirect('/users/profile');
- 
+  // res.redirect('/users/profile');
+  if(!req.body.initiatedItem && !req.body.offeredItem)
+  {
+    model.findOneAndUpdate(
+      { "items._id":id },
+      { $pull:{"items":{"_id":id}}})
+      .then(trade=>{
+        if(trade)
+        {
+           console.log("in single delete");
+           req.flash('success',' trade succesfully deleted');
+          return  res.redirect('/trades');
+  
+        }
+        else
+        { 
+            let err = new Error('Cannot find a story with id ' + id);
+            err.status = 404;
+             next(err);
+  
+        }})
+        .catch(err=>next(err));
 
-  // Promise.all([ model.findOneAndUpdate({"items._id":req.body.offeredItem}, {  $set:{
-  //   'items.$.status':"available"},$unset:{  'items.$.initiatedOffer':""}}),  model.findOneAndUpdate(
-  //     { "items._id":id },
-  //     { $pull:{"items":{"_id":id}}})])
-  //   .then(results=>{
-  //       const[OtherTrade,trade]=results;
-  //       if(trade)
-  //       {
-  //          // console.log(trade);
-  //          req.flash('success',' trade succesfully deleted');
-  //         return  res.redirect('/trades');
-  
-  //       }
-  //       else
-  //       { 
-  //           let err = new Error('Cannot find a story with id ' + id);
-  //           err.status = 404;
-  //            next(err);
-  
-  //       }})
-  //       .catch(err=>next(err));
+  }
+  else if(req.body.initiatedItem=="")
+  {
+    Promise.all([ model.findOneAndUpdate({"items._id":req.body.offeredItem}, {  $set:{
+      'items.$.status':"available"},$unset:{  'items.$.initiatedOffer':""}}),  model.findOneAndUpdate(
+        { "items._id":id },
+        { $pull:{"items":{"_id":id}}})])
+      .then(results=>{
+          const[OtherTrade,trade]=results;
+          if(trade)
+          {
+             console.log("in initiated delete");
+             req.flash('success',' trade succesfully deleted');
+            return  res.redirect('/trades');
+    
+          }
+          else
+          { 
+              let err = new Error('Cannot find a story with id ' + id);
+              err.status = 404;
+               next(err);
+    
+          }})
+          .catch(err=>next(err));
+  }
+  else if(req.body.offeredItem=="")
+  {
+    Promise.all([ model.findOneAndUpdate({"items._id":req.body.initiatedItem}, {  $set:{
+      'items.$.status':"available"},$unset:{  'items.$.offer':""}}),  model.findOneAndUpdate(
+        { "items._id":id },
+        { $pull:{"items":{"_id":id}}})])
+      .then(results=>{
+          const[OtherTrade,trade]=results;
+          if(trade)
+          {
+             console.log("in manage delete");
+             req.flash('success',' trade succesfully deleted');
+            return  res.redirect('/trades');
+    
+          }
+          else
+          { 
+              let err = new Error('Cannot find a story with id ' + id);
+              err.status = 404;
+               next(err);
+    
+          }})
+          .catch(err=>next(err));
+  }
+
+
 
 
 }
