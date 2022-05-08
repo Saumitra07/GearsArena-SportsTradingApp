@@ -135,13 +135,20 @@ exports.delete = (req, res,next) => {
 
   console.log("initiated item is",req.body.initiatedItem=="");
 
+
+
+  //watchModel.updateMany({"watchedTrades.trade_item":id},{$pull:{watchedTrades:{trade_item:id}}})
+  
   // res.redirect('/users/profile');
   if(!req.body.initiatedItem && !req.body.offeredItem)
   {
-    model.findOneAndUpdate(
+    Promise.all([  model.findOneAndUpdate(
       { "items._id":id },
-      { $pull:{"items":{"_id":id}}})
-      .then(trade=>{
+      { $pull:{"items":{"_id":id}}}),watchModel.updateMany({"watchedTrades.trade_item":id},{$pull:{watchedTrades:{trade_item:id}}})])
+  
+      .then(results=>{
+        const[trade,watch]=results;
+
         if(trade)
         {
            console.log("in single delete");
@@ -164,9 +171,10 @@ exports.delete = (req, res,next) => {
     Promise.all([ model.findOneAndUpdate({"items._id":req.body.offeredItem}, {  $set:{
       'items.$.status':"available"},$unset:{  'items.$.initiatedOffer':""}}),  model.findOneAndUpdate(
         { "items._id":id },
-        { $pull:{"items":{"_id":id}}})])
+        { $pull:{"items":{"_id":id}}}),
+        watchModel.updateMany({"watchedTrades.trade_item":id},{$pull:{watchedTrades:{trade_item:id}}})])
       .then(results=>{
-          const[OtherTrade,trade]=results;
+          const[OtherTrade,trade,watch]=results;
           if(trade)
           {
              console.log("in initiated delete");
@@ -188,9 +196,10 @@ exports.delete = (req, res,next) => {
     Promise.all([ model.findOneAndUpdate({"items._id":req.body.initiatedItem}, {  $set:{
       'items.$.status':"available"},$unset:{  'items.$.offer':""}}),  model.findOneAndUpdate(
         { "items._id":id },
-        { $pull:{"items":{"_id":id}}})])
+        { $pull:{"items":{"_id":id}}}),
+        watchModel.updateMany({"watchedTrades.trade_item":id},{$pull:{watchedTrades:{trade_item:id}}})])
       .then(results=>{
-          const[OtherTrade,trade]=results;
+          const[OtherTrade,trade,watch]=results;
           if(trade)
           {
              console.log("in manage delete");
