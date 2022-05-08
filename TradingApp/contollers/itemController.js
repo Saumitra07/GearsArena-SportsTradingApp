@@ -346,7 +346,7 @@ model.findOneAndUpdate(
 
   console.log("initiated trade is",initiatedTrade);
   console.log("offered trade is",offeredTrade);
-  return res.redirect('/trades');
+  return res.redirect('/users/profile');
 
 })
 .catch(err=>{

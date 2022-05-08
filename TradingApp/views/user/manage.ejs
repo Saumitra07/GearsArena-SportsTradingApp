@@ -31,7 +31,7 @@
 
                 <td>
                          
-                        <form action="/users/profile/<%= requestedTrade.items[0]._id %>/cancelTrade?_method=DELETE" method="POST">
+                        <form action="/users/profile/<%= requestedTrade.items[0]._id %>/cancelTrade" method="POST">
 
                             <input type="hidden" name="offeredItemId" value="<%=offeredTrade.items[0]._id%>"/>
                             <button type="submit" class="btn btn-primary">Cancel</button>

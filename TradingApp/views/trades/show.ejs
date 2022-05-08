@@ -6,10 +6,17 @@
         <div class="col-xl-8 col-lg-8 col-md-6 product_card"> 
           <h2><%= item.itemName %></h2>
           <p ><%= item.itemDescription %></p>
+          <h6 >Item  Status: <%=item.status %></h6>
           <form>
             <input type="hidden" name="itemName" value="<%= item.itemName %>"/>
             <% if(user!=item.trader) { %>
-              <button type="submit" class="btn btn-primary" formmethod="GET" formaction="/trades/<%=item._id%>/offer">Trade</button>
+
+              <% if(item.status=="available") { %>
+
+                <button type="submit" class="btn btn-primary" formmethod="GET" formaction="/trades/<%=item._id%>/offer">Trade</button>
+             <% } %>
+
+            
                
               
  <% if(watchedItems!=null) { %>
@@ -31,6 +38,7 @@ else {%>
 
 
               <% } %>
+       
           </form>
          
         </div>

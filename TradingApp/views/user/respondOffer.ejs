@@ -35,7 +35,7 @@
                          
                         <form>
                             <input type="hidden" name="offeredItemId" value="<%=requestedTrade.items[0]._id%>"/>
-                            <button formmethod="POST" type="submit" class="btn btn-primary" formaction="/users/profile/<%= offeredTrade.items[0]._id %>/cancelTrade?_method=DELETE">Cancel</button>
+                            <button formmethod="POST" type="submit" class="btn btn-primary" formaction="/users/profile/<%= offeredTrade.items[0]._id %>/cancelTrade">Cancel</button>
                             <button type="submit" method="POST" class="btn btn-primary" formmethod="POST" formaction="/users/profile/<%= offeredTrade.items[0]._id %>/acceptTrade">Accept</button>
             
                         </form>

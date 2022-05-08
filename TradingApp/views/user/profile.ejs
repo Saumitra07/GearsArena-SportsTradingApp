@@ -83,7 +83,7 @@
   
         <tr>
           
-          <td><%=item.trade_title%></td>
+          <td><a href="/trades/<%=item.trade_item%>"><%=item.trade_title%></a></td>
           <td>
             
             <form action="/trades/<%=item.trade_item%>/unwatchtrade?_method=DELETE" method="POST">
@@ -121,10 +121,10 @@
   
         <tr>
           
-          <td><%=trade.items.itemName %></td>
+          <td><a href="/trades/<%=trade.items._id %>"><%=trade.items.itemName %></a></td>
           <td>
             
-            <form action="/users/profile/<%= trade.items._id %>/cancelTrade?_method=DELETE" method="POST">
+            <form action="/users/profile/<%= trade.items._id %>/cancelTrade" method="POST">
 
               <input type="hidden" name="offeredItemId" value="<%=trade.items.initiatedOffer.tradeOffer%>"/>
               <button type="submit" class="btn btn-primary">Cancel</button>
