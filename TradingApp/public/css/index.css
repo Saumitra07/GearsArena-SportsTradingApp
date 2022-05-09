@@ -144,7 +144,12 @@ h2{
     text-align: center;
 }
 
+.manage_offer_img{
 
+    height: 150px;
+    width: 150px;
+
+}
 /* CSS for footer */
 
 footer{

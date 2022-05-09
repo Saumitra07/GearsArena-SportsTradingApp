@@ -319,6 +319,7 @@ exports.watchTrade=(req,res,next)=>{
     //   err.status = 404;
     //    next(err);
     // }
+    req.flash('success',"trade successfully added to watchlist");
     res.redirect('/users/profile')
   })
   .catch(err=>next(err));
@@ -409,8 +410,10 @@ model.findOneAndUpdate(
 .then(results=>{
   const [initiatedTrade,offeredTrade] =results;
 
-  console.log("initiated trade is",initiatedTrade);
-  console.log("offered trade is",offeredTrade);
+  // console.log("initiated trade is",initiatedTrade);
+  // console.log("offered trade is",offeredTrade);
+
+  req.flash('success','trade successfully offered');
   return res.redirect('/users/profile');
 
 })

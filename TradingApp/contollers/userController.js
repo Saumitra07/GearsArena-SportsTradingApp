@@ -35,7 +35,10 @@ exports.signup=(req,res,next)=>{
         user.email=user.email.toLowerCase();
     }
     user.save()
-    .then(()=>res.redirect('/users/login'))
+    .then(()=>{
+        req.flash('success','new user succesfully created');
+        res.redirect('/users/login')
+    })
     .catch(err=>
         {
             console.log(err);
@@ -116,13 +119,7 @@ exports.profile=(req,res,next)=>{
     .then(results=>{
 
         const[user,trades,watchedItems,yourRequestedTrades]=results;
-        // console.log(trades);
-        // watchedItems=watchtrades.watchedTrades;  
-
-        //console.log("your requested trades",yourRequestedTrades[0].items.initiatedOffer.tradeStartedBy);
-
-       // console.log(watchedItems)
-
+       
         res.render('./user/profile', {user,trades,watchedItems,yourRequestedTrades})
     
     
@@ -169,6 +166,8 @@ exports.cancelInitiatedTrade=(req,res,next)=>{
             // console.log("initiated trade cancel",initiatedCancelTrade);
             
             // console.log("offered trade cancel",offeredCancelTrade);
+
+            req.flash('success',"trade successfully canceled");
 
             return res.redirect('/users/profile');
       })
@@ -258,6 +257,7 @@ exports.acceptTrade=(req,res,next)=>{
             // console.log("initiated trade cancel",initiatedCancelTrade);
             
             // console.log("offered trade cancel",offeredCancelTrade);
+            req.flash('success',"trade successfully accepted");
 
             return res.redirect('/users/profile');
       })

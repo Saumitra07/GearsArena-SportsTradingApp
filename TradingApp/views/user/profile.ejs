@@ -43,7 +43,7 @@
               if(trade.items.offer!=null)
               {%>
                 <input type="hidden" name="requestedItem" value="<%=trade.items.offer.offeredAgainst%>" />
-                <button type="submit" class="btn-primary" formaction="/users/profile/<%=trade.items._id %>/manageTrade" formmethod="GET"> Manage Intiated Offer</button>
+                <button type="submit" class="btn btn-primary" formaction="/users/profile/<%=trade.items._id %>/manageTrade" formmethod="GET"> Manage Intiated Offer</button>
              <% }
               else
               { %>
