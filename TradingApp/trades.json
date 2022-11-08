@@ -1,0 +1,193 @@
+[{
+  "_id": {
+    "$oid": "624a2f23fe2b4064ac5bb55e"
+  },
+  "categoryName": "American Football",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2022-04-03T23:34:59.675Z"
+  },
+  "items": [
+    {
+      "itemName": "football",
+      "trader": {
+        "$oid": "626a0a0b0d38e0a1c42b0eea"
+      },
+      "itemDescription": "lhaflhffllhb",
+      "itemImage": "/images/football1.jpg",
+      "status": "available",
+      "_id": {
+        "$oid": "62755f954ac15d2e0a69d807"
+      },
+      "createdAt": {
+        "$date": "2022-05-06T17:49:09.462Z"
+      }
+    },
+    {
+      "itemName": "helmet",
+      "trader": {
+        "$oid": "626a0a0b0d38e0a1c42b0eea"
+      },
+      "itemDescription": "nice jersey original nike",
+      "itemImage": "/images/football2.jpg",
+      "status": "available",
+      "_id": {
+        "$oid": "6275626a1338f76e301d9190"
+      },
+      "createdAt": {
+        "$date": "2022-05-06T18:01:14.552Z"
+      }
+    },
+    {
+      "itemName": "Football pads",
+      "trader": {
+        "$oid": "626a0a0b0d38e0a1c42b0eea"
+      },
+      "itemDescription": "efbkelfhleq",
+      "itemImage": "/images/football3.jpg",
+      "status": "available",
+      "_id": {
+        "$oid": "627570e441cec61825bf3ecf"
+      },
+      "createdAt": {
+        "$date": "2022-05-06T19:03:00.561Z"
+      }
+    },
+    {
+      "itemName": "shoulder pads",
+      "trader": {
+        "$oid": "626a1384137a34a744126368"
+      },
+      "itemDescription": "very nice pads",
+      "itemImage": "/images/baseball1.jpeg",
+      "status": "available",
+      "_id": {
+        "$oid": "6277473f5c6573c95bb14429"
+      },
+      "createdAt": {
+        "$date": "2022-05-08T04:29:51.399Z"
+      }
+    }
+  ],
+  "updatedAt": {
+    "$date": "2022-05-08T04:56:07.331Z"
+  }
+},{
+  "_id": {
+    "$oid": "6275afaf5321407da7a24d2c"
+  },
+  "categoryName": "baseball",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2022-05-06T23:30:55.429Z"
+  },
+  "items": [
+    {
+      "itemName": "baseball bat",
+      "trader": {
+        "$oid": "626a1384137a34a744126368"
+      },
+      "itemDescription": "very nice bat",
+      "itemImage": "/images/baseball1.jpeg",
+      "status": "available",
+      "_id": {
+        "$oid": "6275afaff8a2450f7addb6ac"
+      },
+      "createdAt": {
+        "$date": "2022-05-06T23:30:55.440Z"
+      }
+    },
+    {
+      "itemName": "baseball helmet",
+      "trader": {
+        "$oid": "626a1384137a34a744126368"
+      },
+      "itemDescription": "klbawldagbdgald",
+      "itemImage": "/images/baseball2.jpeg",
+      "status": "available",
+      "_id": {
+        "$oid": "6275dcd83878db41d1f9a99b"
+      },
+      "createdAt": {
+        "$date": "2022-05-07T02:43:36.699Z"
+      }
+    },
+    {
+      "itemName": "baseball gloves",
+      "trader": {
+        "$oid": "62774a4a5c6573c95bb14464"
+      },
+      "itemDescription": "Baseball gloves of brand rawlings. Very good condition",
+      "itemImage": "/images/baseball3.jpeg",
+      "status": "available",
+      "_id": {
+        "$oid": "62774c1c5c6573c95bb1449e"
+      },
+      "createdAt": {
+        "$date": "2022-05-08T04:50:36.588Z"
+      }
+    }
+  ],
+  "updatedAt": {
+    "$date": "2022-05-08T04:52:40.625Z"
+  }
+},{
+  "_id": {
+    "$oid": "627749e15321407da7a2f680"
+  },
+  "categoryName": "Golf",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2022-05-08T04:41:05.821Z"
+  },
+  "items": [
+    {
+      "itemName": "Golf ball set",
+      "trader": {
+        "$oid": "626a1384137a34a744126368"
+      },
+      "itemDescription": "golf ball set of 3",
+      "itemImage": "/images/golf1.jpg",
+      "status": "available",
+      "_id": {
+        "$oid": "627749e15c6573c95bb1444b"
+      },
+      "createdAt": {
+        "$date": "2022-05-08T04:41:05.822Z"
+      }
+    },
+    {
+      "itemName": "Golf bag",
+      "trader": {
+        "$oid": "62774a4a5c6573c95bb14464"
+      },
+      "itemDescription": "Golf bag having many pockets",
+      "itemImage": "/images/golf2.jpg",
+      "status": "available",
+      "_id": {
+        "$oid": "62774a6e5c6573c95bb1446c"
+      },
+      "createdAt": {
+        "$date": "2022-05-08T04:43:26.158Z"
+      }
+    },
+    {
+      "itemName": "Golf bat",
+      "trader": {
+        "$oid": "626a0a0b0d38e0a1c42b0eea"
+      },
+      "itemDescription": "Very good golf bat",
+      "itemImage": "/images/golf3.jpg",
+      "status": "available",
+      "_id": {
+        "$oid": "62774ba95c6573c95bb14480"
+      },
+      "createdAt": {
+        "$date": "2022-05-08T04:48:41.412Z"
+      }
+    }
+  ],
+  "updatedAt": {
+    "$date": "2022-05-08T04:56:07.331Z"
+  }
+}]
